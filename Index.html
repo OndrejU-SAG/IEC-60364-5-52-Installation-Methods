@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEC 60364-5-52 · Table A.52.3</title>
+<style>
+:root{
+  --base:#1e1e2e;--mantle:#181825;--crust:#11111b;
+  --s0:#313244;--s1:#45475a;--s2:#585b70;
+  --ov0:#6c7086;--ov1:#7f849c;--sub0:#a6adc8;--sub1:#bac2de;
+  --text:#cdd6f4;--mauve:#cba6f7;--blue:#89b4fa;--sapphire:#74c7ec;
+  --teal:#94e2d5;--green:#a6e3a1;--yellow:#f9e2af;--peach:#fab387;
+  --pink:#f5c2e7;--red:#f38ba8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--base);color:var(--text);font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:13px;min-height:100vh}
+a{color:var(--mauve)}
+
+/* HEADER */
+header{
+  background:var(--mantle);border-bottom:2px solid var(--mauve);
+  padding:.9rem 1.5rem;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:.75rem;
+  position:sticky;top:0;z-index:100;
+}
+.title{font-size:.95rem;font-weight:700;color:var(--mauve);letter-spacing:.03em}
+.title span{color:var(--sub0);font-weight:400}
+.controls{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.lang-btn{background:var(--s0);border:1px solid var(--s1);color:var(--sub0);
+  padding:.25rem .6rem;border-radius:4px;cursor:pointer;font-family:inherit;
+  font-size:.75rem;font-weight:600;transition:all .15s;letter-spacing:.05em}
+.lang-btn.active,.lang-btn:hover{background:var(--s1);color:var(--mauve);border-color:var(--mauve)}
+#search{background:var(--s0);border:1px solid var(--s1);color:var(--text);
+  padding:.28rem .7rem;border-radius:4px;font-family:inherit;font-size:.8rem;
+  outline:none;width:180px;transition:border-color .15s}
+#search:focus{border-color:var(--mauve)}
+#search::placeholder{color:var(--ov0)}
+
+/* FILTER BAR */
+.filter-bar{
+  background:var(--mantle);border-bottom:1px solid var(--s0);
+  padding:.55rem 1.5rem;display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;
+  position:sticky;top:54px;z-index:99;
+}
+.filter-label{font-size:.7rem;color:var(--ov0);text-transform:uppercase;letter-spacing:.08em;margin-right:.25rem}
+.mpill{padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;
+  cursor:pointer;border:1px solid transparent;transition:all .15s;opacity:.45;letter-spacing:.04em}
+.mpill.on{opacity:1}
+.mA{background:#0e2130;color:var(--sapphire);border-color:#74c7ec30}
+.mB{background:#1f1730;color:var(--mauve);border-color:#cba6f730}
+.mC{background:#102010;color:var(--green);border-color:#a6e3a130}
+.mD{background:#201a0a;color:var(--peach);border-color:#fab38730}
+.mE{background:#0e2020;color:var(--teal);border-color:#94e2d530}
+.mG{background:#201020;color:var(--pink);border-color:#f5c2e730}
+.mall{background:var(--s0);color:var(--text);border-color:var(--s1);opacity:1!important}
+
+/* SUMMARY BAR */
+.summary-bar{padding:.35rem 1.5rem;font-size:.72rem;color:var(--ov0);
+  background:var(--crust);border-bottom:1px solid var(--s0)}
+#item-count{color:var(--sub0);font-weight:600}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+thead th{
+  background:var(--crust);padding:.6rem 1rem;text-align:left;
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--ov0);border-bottom:1px solid var(--s0);
+  white-space:nowrap;
+}
+thead th:nth-child(1){width:42px;text-align:center}
+thead th:nth-child(2){width:60px;text-align:center}
+thead th:nth-child(3){width:106px;text-align:center}
+thead th:nth-child(4){width:28%}
+thead th:nth-child(6){width:20%}
+.td-panel{font-size:.8rem;line-height:1.45;vertical-align:middle}
+.prelvt{display:inline-block;font-size:.68rem;font-weight:700;padding:.12rem .45rem;border-radius:3px;margin-bottom:.35rem;letter-spacing:.04em}
+.pyes{background:#a6e3a118;color:var(--green);border:1px solid #a6e3a140}
+.ppart{background:#f9e2af18;color:var(--yellow);border:1px solid #f9e2af40}
+.pno{background:var(--s0);color:var(--ov0);border:1px solid var(--s1);opacity:.7}
+.pnote{color:var(--sub0);font-size:.78rem}
+tbody tr{border-bottom:1px solid var(--s0);transition:background .1s}
+tbody tr:hover{background:var(--s0)}
+tbody tr.hidden{display:none}
+td{padding:.65rem 1rem;vertical-align:middle}
+.td-n{text-align:center;font-size:.95rem;font-weight:700;color:var(--ov1)}
+.td-m{text-align:center}
+.mbadge{display:inline-block;padding:.18rem .45rem;border-radius:4px;
+  font-size:.72rem;font-weight:700;letter-spacing:.05em}
+.bA1,.bA2{background:#74c7ec18;color:var(--sapphire);border:1px solid #74c7ec40}
+.bB1,.bB2,.bB12{background:#cba6f718;color:var(--mauve);border:1px solid #cba6f740}
+.bC{background:#a6e3a118;color:var(--green);border:1px solid #a6e3a140}
+.bD1,.bD2{background:#fab38718;color:var(--peach);border:1px solid #fab38740}
+.bEF{background:#94e2d518;color:var(--teal);border:1px solid #94e2d540}
+.bG{background:#f5c2e718;color:var(--pink);border:1px solid #f5c2e740}
+.td-svg{text-align:center;padding:.5rem}
+td svg{width:100px;height:75px;display:block;margin:auto}
+.td-desc{font-size:.8rem;color:var(--sub0);font-style:italic;line-height:1.45}
+.td-ex{font-size:.82rem;color:var(--text);line-height:1.5}
+.note{font-size:.72rem;color:var(--ov0);margin-top:.3rem;font-style:normal}
+
+/* GROUP HEADERS */
+tr.group-hdr td{
+  background:var(--mantle);color:var(--mauve);
+  font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;
+  padding:.4rem 1rem;font-style:normal;font-weight:700;
+  border-top:2px solid var(--s1);
+}
+
+@media(max-width:780px){
+  header{top:0}
+  .filter-bar{top:auto;position:static}
+  .td-desc{display:none}
+  thead th:nth-child(4){display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">IEC 60364-5-52 <span>· Table A.52.3 · Installation Methods</span></div>
+  <div class="controls">
+    <input id="search" type="text" placeholder="Search…" oninput="applyFilters()">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('cs')">CS</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <span class="filter-label">Method</span>
+  <span class="mpill mall on" onclick="filterMethod('all')">All</span>
+  <span class="mpill mA on" onclick="filterMethod('A')">A1 / A2</span>
+  <span class="mpill mB on" onclick="filterMethod('B')">B1 / B2</span>
+  <span class="mpill mC on" onclick="filterMethod('C')">C</span>
+  <span class="mpill mD on" onclick="filterMethod('D')">D1 / D2</span>
+  <span class="mpill mE on" onclick="filterMethod('E')">E / F</span>
+  <span class="mpill mG on" onclick="filterMethod('G')">G</span>
+</div>
+
+<div class="summary-bar">Showing <span id="item-count">—</span> items · IEC 60364-5-52:2009 Table A.52.3</div>
+
+<div class="tbl-wrap">
+<table id="tbl">
+<thead>
+  <tr>
+    <th>#</th>
+    <th>Method</th>
+    <th>Illustration</th>
+    <th id="th-desc">Standard Description</th>
+    <th id="th-ex">Plain Explanation</th>
+    <th id="th-panel">Panel / Switchgear Use</th>
+  </tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+// ─── state ───────────────────────────────────────────────────────────────────
+let curLang = 'en';
+let curMethod = 'all';
+
+// ─── SVG helpers ─────────────────────────────────────────────────────────────
+const S = (inner) => `<svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const bg   = `<rect width="100" height="80" fill="#252338" rx="3"/>`;
+const wL   = `<rect x="0" y="0" width="24" height="80" fill="#45475a"/>`;
+const wR   = `<rect x="76" y="0" width="24" height="80" fill="#45475a"/>`;
+const wT   = `<rect x="0" y="0" width="100" height="18" fill="#45475a"/>`;
+const wF   = `<rect width="100" height="80" fill="#45475a"/>`;
+const wB80 = `<rect x="0" y="60" width="100" height="20" fill="#45475a"/>`;
+
+function insulFull(c){ 
+  const ln=Array.from({length:11},(_,i)=>{const x=i*18-30;return`<line x1="${x}" y1="0" x2="${x+80}" y2="80" stroke="${c}1a" stroke-width="1.5"/>`;}).join('');
+  return `<rect width="100" height="80" fill="#2c2844" rx="3"/>${ln}`;
+}
+function masonryFull(){
+  let s=`<rect width="100" height="80" fill="#3e3828"/>`;
+  for(let y=0;y<80;y+=12){const off=(Math.floor(y/12)%2)*8;for(let x=-8+off;x<108;x+=16){s+=`<rect x="${x}" y="${y+1}" width="14" height="10" fill="none" stroke="#504e38" stroke-width=".8" rx="1"/>`;}}
+  return s;
+}
+function cond(x,y,r,c){return`<circle cx="${x}" cy="${y}" r="${r}" fill="#181628" stroke="${c}" stroke-width="2"/>`;}
+function c1(x,y,r,c){return`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}cc" stroke="${c}" stroke-width="1"/>`;} // single-core
+function cM(x,y,r,c){return`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}40" stroke="${c}" stroke-width="1.5"/><circle cx="${x-r*.3}" cy="${y-r*.3}" r="${r*.28}" fill="${c}dd"/><circle cx="${x+r*.3}" cy="${y-r*.3}" r="${r*.28}" fill="${c}dd"/><circle cx="${x}" cy="${y+r*.35}" r="${r*.28}" fill="${c}dd"/>`;} // multi-core
+function c3(x,y,r,c){return`<circle cx="${x-r}" cy="${y-.6*r}" r="${r*.6}" fill="${c}cc"/><circle cx="${x+r}" cy="${y-.6*r}" r="${r*.6}" fill="${c}cc"/><circle cx="${x}" cy="${y+.75*r}" r="${r*.6}" fill="${c}cc"/>`;} // 3 conductors
+function duct(x,y,w,h,c){return`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#181628" stroke="${c}" stroke-width="1.5"/>`;}
+
+// void BG = two structural layers with air gap
+function voidBG(){return `${bg}<rect x="0" y="0" width="100" height="18" fill="#45475a"/><rect x="0" y="62" width="100" height="18" fill="#45475a"/>`;}
+// channel in floor
+function chanBG(closed){
+  const fl=`<rect x="0" y="38" width="100" height="42" fill="#45475a"/>`;
+  const ch=`<path d="M22,38 L22,68 L78,68 L78,38" fill="#1a1630" stroke="#585b70" stroke-width="1.5"/>`;
+  const lid=closed?`<rect x="20" y="36" width="60" height="4" fill="#45475a" stroke="#6c7086" stroke-width="1"/>`:'';
+  return `${bg}${fl}${ch}${lid}`;
+}
+function groundBG(){return `${bg}<rect x="0" y="36" width="100" height="44" fill="#3a2f1e"/><path d="M0,36 Q25,31 50,36 Q75,41 100,36" fill="#5c4a2a"/>`;} 
+
+// ─── SVG generators per item ──────────────────────────────────────────────────
+const G = {
+  // 1: insulated conductors in conduit in insulated wall
+  item1: c => S(insulFull(c)+cond(50,40,18,c)+c3(50,40,10,c)),
+  // 2: multi-core in conduit in insulated wall
+  item2: c => S(insulFull(c)+cond(50,40,18,c)+cM(50,40,12,c)),
+  // 3: multi-core direct in insulated wall
+  item3: c => S(insulFull(c)+cM(50,40,14,c)),
+  // 4: conductors in conduit on wall
+  item4: c => S(`${bg}${wL}`+cond(46,40,16,c)+c3(46,40,9,c)),
+  // 5: multi-core in conduit on wall
+  item5: c => S(`${bg}${wL}`+cond(46,40,16,c)+cM(46,40,10,c)),
+  // 6: single in trunking on wall (horizontal)
+  item6: c => S(`${bg}${wL}<rect x="24" y="24" width="44" height="32" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+c3(46,40,10,c)),
+  // 7: single in trunking on wall (vertical)
+  item7: c => S(`${bg}${wL}<rect x="24" y="10" width="32" height="60" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+c3(40,40,10,c)),
+  // 8: multi-core in trunking on wall (horizontal)
+  item8: c => S(`${bg}${wL}<rect x="24" y="24" width="44" height="32" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+cM(46,40,11,c)),
+  // 9: multi-core in trunking on wall (vertical)
+  item9: c => S(`${bg}${wL}<rect x="24" y="10" width="32" height="60" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+cM(40,40,11,c)),
+  // 10: conductors in suspended trunking
+  item10: c => S(`${bg}${wT}<line x1="38" y1="18" x2="38" y2="30" stroke="${c}" stroke-width="1.5"/><line x1="62" y1="18" x2="62" y2="30" stroke="${c}" stroke-width="1.5"/><rect x="24" y="30" width="52" height="26" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+c3(50,43,9,c)),
+  // 11: multi-core in suspended trunking
+  item11: c => S(`${bg}${wT}<line x1="38" y1="18" x2="38" y2="30" stroke="${c}" stroke-width="1.5"/><line x1="62" y1="18" x2="62" y2="30" stroke="${c}" stroke-width="1.5"/><rect x="24" y="30" width="52" height="26" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+cM(50,43,11,c)),
+  // 12: conductors in moulding
+  item12: c => S(`${bg}${wL}<path d="M24,28 Q32,16 44,28 L44,62 L24,62 Z" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+c1(34,46,6,c)),
+  // 13: multi-core in moulding
+  item13: c => S(`${bg}${wL}<path d="M24,28 Q32,16 44,28 L44,62 L24,62 Z" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+cM(34,46,8,c)),
+  // 15: in architrave
+  item15: c => S(`${bg}<rect x="8" y="0" width="84" height="80" fill="#45475a"/><rect x="20" y="0" width="60" height="80" fill="#252338"/><rect x="14" y="14" width="72" height="10" fill="#45475a"/>`+c1(23,40,5,c)),
+  // 16: in window frame
+  item16: c => S(`${bg}<rect x="8" y="8" width="84" height="64" fill="#45475a" rx="2"/><rect x="16" y="16" width="68" height="48" fill="#1a2a3a"/><rect x="46" y="14" width="8" height="52" fill="#45475a"/><rect x="14" y="37" width="72" height="6" fill="#45475a"/>`+c1(24,42,5,c)),
+  // 20: cable fixed on wall
+  item20: c => S(`${bg}${wL}`+c1(38,40,11,c)),
+  // 21: cable fixed under ceiling
+  item21: c => S(`${bg}${wT}`+c1(50,32,11,c)),
+  // 30: unperforated tray
+  item30: c => S(`${bg}<path d="M12,56 L12,44 L88,44 L88,56" fill="#181628" stroke="${c}" stroke-width="2"/>`+c1(30,35,8,c)+c1(50,35,8,c)+c1(70,35,8,c)),
+  // 31: perforated tray
+  item31: c => {
+    const pts=Array.from({length:7},(_,i)=>`<circle cx="${18+i*11}" cy="51" r="2.2" fill="${c}30" stroke="${c}60" stroke-width=".8"/>`).join('');
+    return S(`${bg}<path d="M12,56 L12,44 L88,44 L88,56" fill="#181628" stroke="${c}" stroke-width="2"/>${pts}`+c1(30,35,8,c)+c1(50,35,8,c)+c1(70,35,8,c));
+  },
+  // 32: cable ladder
+  item32: c => {
+    const rl=`<line x1="12" y1="38" x2="88" y2="38" stroke="${c}" stroke-width="2"/><line x1="12" y1="54" x2="88" y2="54" stroke="${c}" stroke-width="2"/>`;
+    const rgs=Array.from({length:6},(_,i)=>`<line x1="${18+i*13}" y1="38" x2="${18+i*13}" y2="54" stroke="${c}" stroke-width="2"/>`).join('');
+    return S(`${bg}${rl}${rgs}`+c1(26,28,8,c)+c1(50,28,8,c)+c1(74,28,8,c));
+  },
+  // 33: cables spaced >0.3D from wall (free air near wall)
+  item33: c => S(`${bg}${wL}<line x1="24" y1="30" x2="40" y2="30" stroke="${c}50" stroke-width="1" stroke-dasharray="3,2"/><line x1="24" y1="52" x2="40" y2="52" stroke="${c}50" stroke-width="1" stroke-dasharray="3,2"/>`+cM(50,30,10,c)+cM(50,52,10,c)),
+  // 34: cable with catenary wire
+  item34: c => S(`${bg}<path d="M8,20 Q50,32 92,20" fill="none" stroke="${c}" stroke-width="1.5"/><line x1="28" y1="22" x2="28" y2="40" stroke="${c}80" stroke-width="1"/><line x1="50" y1="28" x2="50" y2="46" stroke="${c}80" stroke-width="1"/><line x1="72" y1="22" x2="72" y2="40" stroke="${c}80" stroke-width="1"/><path d="M8,42 Q50,54 92,42" fill="none" stroke="${c}" stroke-width="3"/>`),
+  // 35: bare/insulated conductors on insulators
+  item35: c => S(`${bg}${wB80}<rect x="25" y="42" width="10" height="18" fill="#585b70" rx="2"/><rect x="22" y="40" width="16" height="4" fill="#45475a" rx="1"/><rect x="65" y="42" width="10" height="18" fill="#585b70" rx="2"/><rect x="62" y="40" width="16" height="4" fill="#45475a" rx="1"/><line x1="5" y1="37" x2="95" y2="37" stroke="${c}" stroke-width="3"/>`),
+  // 36: alternative insulator mount (bare conductors)
+  item36: c => S(`${bg}${wB80}<rect x="25" y="42" width="10" height="18" fill="#585b70" rx="2"/><rect x="22" y="40" width="16" height="4" fill="#45475a" rx="1"/><rect x="65" y="42" width="10" height="18" fill="#585b70" rx="2"/><rect x="62" y="40" width="16" height="4" fill="#45475a" rx="1"/><line x1="5" y1="37" x2="42" y2="37" stroke="${c}" stroke-width="3"/><line x1="58" y1="37" x2="95" y2="37" stroke="${c}" stroke-width="3"/>`),
+  // 40: cable in building void
+  item40: c => S(voidBG()+cM(50,40,12,c)),
+  // 41: insulated conductors in conduit in void
+  item41: c => S(voidBG()+cond(50,40,16,c)+c3(50,40,9,c)),
+  // 42: cable in conduit in void
+  item42: c => S(voidBG()+cond(50,40,16,c)+cM(50,40,10,c)),
+  // 43: insulated conductors in ducting in void
+  item43: c => S(voidBG()+duct(28,30,44,20,c)+c3(50,40,8,c)),
+  // 44: cable in ducting in void
+  item44: c => S(voidBG()+duct(28,30,44,20,c)+cM(50,40,10,c)),
+  // 45: insulated conductors in ducting in masonry
+  item45: c => S(masonryFull()+duct(28,28,44,24,c)+c3(50,40,9,c)),
+  // 46: cable in ducting in masonry (thermal res ≤ 2 K·m/W)
+  item46: c => S(masonryFull()+duct(28,28,44,24,c)+cM(50,40,11,c)),
+  // 46B: cable in ducting in masonry with raised floor thermal resistance
+  item46B: c => S(masonryFull()+duct(28,28,44,24,c)+cM(50,40,11,c)+`<rect x="0" y="64" width="100" height="5" fill="#585b70" stroke="${c}40" stroke-width="1"/>`),
+  // 47: cable in ceiling void / raised floor
+  item47: c => S(`${bg}<rect x="0" y="0" width="100" height="18" fill="#45475a"/><rect x="0" y="62" width="100" height="18" fill="#45475a"/>`+cM(50,40,11,c)),
+  // 52: multi-core in flush trunking (in wall)
+  item52: c => S(`${bg}${wL}<rect x="0" y="25" width="24" height="30" fill="#181628" stroke="${c}" stroke-width="1.5"/>`+cM(12,40,10,c)),
+  // 53: cable/conduit in unventilated cable channel
+  item53: c => S(chanBG(true)+cond(50,55,13,c)+cM(50,55,9,c)),
+  // 55: conduit in open/ventilated channel in floor
+  item55: c => S(chanBG(false)+cond(50,55,13,c)+c3(50,55,8,c)),
+  // 56: cable in open/ventilated channel
+  item56: c => S(chanBG(false)+cM(50,55,11,c)),
+  // 57: cable direct in masonry (no protection)
+  item57: c => S(masonryFull()+cM(50,40,12,c)),
+  // 58: cable direct in masonry (with mechanical protection)
+  item58: c => S(masonryFull()+cond(50,40,17,c)+cM(50,40,11,c)),
+  // 70: multi-core in conduit in ground
+  item70: c => S(groundBG()+cond(50,57,15,c)+cM(50,57,9,c)),
+  // 71: single-core cables in conduit in ground
+  item71: c => S(groundBG()+cond(50,57,15,c)+c3(50,57,9,c)),
+  // 72: cable direct in ground
+  item72: c => S(groundBG()+cM(50,57,12,c)),
+  // 73: cable in ground with mechanical protection
+  item73: c => S(groundBG()+`<rect x="30" y="42" width="40" height="6" fill="#585b70" rx="1"/>`+cM(50,58,11,c)),
+};
+
+// ─── method color ─────────────────────────────────────────────────────────────
+const MC = {A1:'#74c7ec',A2:'#74c7ec',B1:'#cba6f7',B2:'#cba6f7','B1/B2':'#cba6f7',
+  C:'#a6e3a1',D1:'#fab387',D2:'#fab387','E or F':'#94e2d5',G:'#f5c2e7'};
+
+// ─── method badge class ───────────────────────────────────────────────────────
+function badgeClass(m){
+  if(m.startsWith('A')) return 'bA'+m[1];
+  if(m==='B1') return 'bB1';
+  if(m==='B2') return 'bB2';
+  if(m==='B1/B2') return 'bB12';
+  if(m==='C') return 'bC';
+  if(m.startsWith('D')) return 'bD'+m[1];
+  if(m==='E or F') return 'bEF';
+  if(m==='G') return 'bG';
+  return '';
+}
+
+// ─── item data ────────────────────────────────────────────────────────────────
+const GROUPS = [
+  { id:'g_insul', en:'Thermally Insulated Walls', cs:'Tepelně izolované stěny', de:'Wärmegedämmte Wände' },
+  { id:'g_wall',  en:'Conduit & Trunking on Wall', cs:'Trubky a žlaby na stěně', de:'Rohre & Kanäle an der Wand' },
+  { id:'g_susp',  en:'Suspended & Overhead Trunking', cs:'Závěsné vedení', de:'Abgehängte Kanäle' },
+  { id:'g_mold',  en:'Mouldings, Architraves & Window Frames', cs:'Lišty, zárubeň a okenní rám', de:'Leisten, Zargen & Fensterrahmen' },
+  { id:'g_surf',  en:'Surface Mounted', cs:'Povrchové uložení', de:'Aufputz' },
+  { id:'g_tray',  en:'Trays, Ladders & Free Air', cs:'Žlaby, žebříky a volný vzduch', de:'Rinnen, Leitern & Freie Luft' },
+  { id:'g_void',  en:'Building Voids & Ducting', cs:'Dutiny a kabelové kanály', de:'Hohlräume & Kabelkanäle' },
+  { id:'g_chan',  en:'Cable Channels & Flush Trunking', cs:'Kabelové kanály & zapuštěné žlaby', de:'Kabelkanäle & bündige Kanäle' },
+  { id:'g_emb',   en:'Embedded in Masonry', cs:'Zabetonované ve zdivu', de:'Im Mauerwerk eingebettet' },
+  { id:'g_gnd',   en:'Underground (Buried)', cs:'Zemní uložení', de:'Erdverlegte Leitungen' },
+];
+
+const ITEMS = [
+  // ── INSULATED WALLS ─────────────────────────────────────────────────────────
+  { group:'g_insul', id:1, method:'A1', svgFn:'item1',
+    desc:{en:'Insulated conductors or single-core cables in conduit in a thermally insulated wall',
+          cs:'Izolované vodiče nebo jednožilové kabely v trubce v tepelně izolované stěně',
+          de:'Isolierte Leiter oder einadrige Kabel in Rohr in einer wärmegedämmten Wand'},
+    expl:{en:'Conduit embedded inside thermal insulation (e.g. EPS, PIR). The insulating material surrounds the conduit and severely restricts heat dissipation — lowest current capacity of all methods.',
+          cs:'Trubka vedená uvnitř tepelné izolace (např. EPS, PIR). Izolační materiál obklopuje trubku a výrazně brání odvodu tepla — nejnižší proudová zatížitelnost ze všech metod.',
+          de:'Rohr eingebettet in Wärmedämmung (z.B. EPS, PIR). Das Dämmmaterial blockiert die Wärmeabgabe stark — niedrigste Strombelastbarkeit aller Methoden.'}},
+
+  { group:'g_insul', id:2, method:'A2', svgFn:'item2',
+    desc:{en:'Multi-core cables in conduit in a thermally insulated wall',
+          cs:'Vícežilové kabely v trubce v tepelně izolované stěně',
+          de:'Mehraderkabel in Rohr in einer wärmegedämmten Wand'},
+    expl:{en:'Same as method 1 but a multi-core cable is used instead of individual conductors. Multi-core cables dissipate heat less efficiently than separate conductors, slightly reducing capacity further.',
+          cs:'Stejné jako metoda 1, ale používá se vícežilový kabel místo jednotlivých vodičů. Vícežilové kabely odvádějí teplo méně efektivně než oddělené vodiče.',
+          de:'Wie Methode 1, jedoch wird ein Mehraderkabel anstelle einzelner Leiter verwendet. Mehraderkabel leiten Wärme weniger effizient ab als einzelne Leiter.'}},
+
+  { group:'g_insul', id:3, method:'A1', svgFn:'item3',
+    desc:{en:'Multi-core cable direct in a thermally insulated wall (no conduit)',
+          cs:'Vícežilový kabel přímo v tepelně izolované stěně (bez trubky)',
+          de:'Mehraderkabel direkt in einer wärmegedämmten Wand (ohne Rohr)'},
+    expl:{en:'The cable is embedded directly in the thermal insulation without any conduit. Despite no conduit, rated A1 because the insulation is still the dominant thermal barrier.',
+          cs:'Kabel je zabudován přímo do tepelné izolace bez trubky. Navzdory absenci trubky je hodnocen A1, protože izolace je stále dominantní tepelnou bariérou.',
+          de:'Das Kabel ist ohne Rohr direkt in der Wärmedämmung eingebettet. Trotzdem als A1 bewertet, da die Dämmung weiterhin die bestimmende thermische Barriere darstellt.'}},
+
+  // ── CONDUIT & TRUNKING ON WALL ──────────────────────────────────────────────
+  { group:'g_wall', id:4, method:'B1', svgFn:'item4',
+    desc:{en:'Insulated conductors or single-core cables in conduit on a wooden or masonry wall (gap < 0.3× conduit diameter)',
+          cs:'Izolované vodiče nebo jednožilové kabely v trubce na dřevěné nebo zděné stěně (mezera < 0,3× průměr trubky)',
+          de:'Isolierte Leiter oder einadrige Kabel in Rohr auf einer Holz- oder Mauerwerkswand (Abstand < 0,3× Rohrdurchmesser)'},
+    expl:{en:'Conduit fixed on the surface of a wall. The wall acts as a partial heat sink, but the conduit limits airflow around the conductors. Common for surface-run installations.',
+          cs:'Trubka upevněná na povrchu stěny. Stěna slouží jako částečný chladič, ale trubka omezuje proudění vzduchu kolem vodičů. Běžné pro povrchové instalace.',
+          de:'Rohr auf einer Wandoberfläche befestigt. Die Wand fungiert als partieller Wärmeableiter, das Rohr schränkt aber die Luftzirkulation ein. Typisch für Aufputzinstallationen.'}},
+
+  { group:'g_wall', id:5, method:'B2', svgFn:'item5',
+    desc:{en:'Multi-core cable in conduit on a wooden or masonry wall',
+          cs:'Vícežilový kabel v trubce na dřevěné nebo zděné stěně',
+          de:'Mehraderkabel in Rohr auf einer Holz- oder Mauerwerkswand'},
+    expl:{en:'Multi-core cable inside surface-mounted conduit. Same physical setup as method 4 but the cable\'s bundled cores generate more heat per conduit, reducing maximum current.',
+          cs:'Vícežilový kabel uvnitř trubky upevněné na povrchu. Stejné fyzické uspořádání jako metoda 4, ale svázané žíly kabelu generují více tepla na trubku.',
+          de:'Mehraderkabel in aufputzmontiertem Rohr. Gleiche Konfiguration wie Methode 4, aber die gebündelten Adern erzeugen mehr Wärme pro Rohr — reduziert den Nennstrom.'}},
+
+  { group:'g_wall', id:6, method:'B1', svgFn:'item6',
+    desc:{en:'Insulated conductors or single-core cables in cable trunking on a wooden or masonry wall — run horizontally',
+          cs:'Izolované vodiče nebo jednožilové kabely v kabelovém kanálu na stěně — vedené vodorovně',
+          de:'Isolierte Leiter oder einadrige Kabel in Kabelkanal an der Wand — waagerecht verlegt'},
+    expl:{en:'Individual conductors laid in a rectangular surface-mounted trunking running horizontally. Heat builds up less than in a fully enclosed conduit due to larger internal volume.',
+          cs:'Jednotlivé vodiče uložené v obdélníkovém kabelovém kanálu na povrchu, vedené vodorovně. Teplo se hromadí méně než v uzavřené trubce díky většímu vnitřnímu objemu.',
+          de:'Einzelleiter in waagerecht verlaufendem Aufputz-Kabelkanal. Wärmestau geringer als in geschlossenem Rohr aufgrund des größeren Innenvolumens.'}},
+
+  { group:'g_wall', id:7, method:'B1', svgFn:'item7',
+    desc:{en:'Insulated conductors or single-core cables in cable trunking on a wooden or masonry wall — run vertically',
+          cs:'Izolované vodiče nebo jednožilové kabely v kabelovém kanálu na stěně — vedené svisle',
+          de:'Isolierte Leiter oder einadrige Kabel in Kabelkanal an der Wand — senkrecht verlegt'},
+    expl:{en:'Same as method 6 but the trunking runs vertically. Vertical runs allow slightly better natural convection, but the standard applies the same B1 capacity tables.',
+          cs:'Stejné jako metoda 6, ale kabelový kanál je veden svisle. Svislé vedení umožňuje lepší přirozenou konvekci, norma však stále používá stejné tabulky B1.',
+          de:'Wie Methode 6, jedoch senkrechter Verlauf. Senkrechte Führung erlaubt etwas bessere Konvektion, die Norm wendet dennoch dieselben B1-Tabellen an.'}},
+
+  { group:'g_wall', id:8, method:'B2', svgFn:'item8',
+    desc:{en:'Multi-core cable in cable trunking on a wooden or masonry wall — run horizontally',
+          cs:'Vícežilový kabel v kabelovém kanálu na stěně — vedený vodorovně',
+          de:'Mehraderkabel in Kabelkanal an der Wand — waagerecht verlegt'},
+    expl:{en:'Multi-core cable in a horizontal surface-mounted trunking. The cable\'s multiple cores produce more heat internally, placing this one step lower than B1 for capacity.',
+          cs:'Vícežilový kabel ve vodorovném kabelovém kanálu na povrchu. Více žil kabelu produkuje více tepla vnitřně — o krok nižší proudová zatížitelnost než B1.',
+          de:'Mehraderkabel im waagerechten Aufputz-Kabelkanal. Mehrere Adern erzeugen mehr innere Wärme — Strombelastbarkeit eine Stufe unter B1.'}},
+
+  { group:'g_wall', id:9, method:'B2', svgFn:'item9',
+    desc:{en:'Multi-core cable in cable trunking on a wooden or masonry wall — run vertically',
+          cs:'Vícežilový kabel v kabelovém kanálu na stěně — vedený svisle',
+          de:'Mehraderkabel in Kabelkanal an der Wand — senkrecht verlegt'},
+    expl:{en:'Multi-core cable in vertical surface-mounted trunking. Applies the same B2 capacity tables as method 8; vertical orientation does not significantly change the rating.',
+          cs:'Vícežilový kabel ve svislém kabelovém kanálu na povrchu. Používají se stejné tabulky B2 jako pro metodu 8; svislá orientace nemění výrazně zatížitelnost.',
+          de:'Mehraderkabel im senkrechten Aufputz-Kabelkanal. Gleiche B2-Tabellen wie Methode 8; senkrechte Ausrichtung ändert die Belastbarkeit nicht wesentlich.'}},
+
+  // ── SUSPENDED TRUNKING ───────────────────────────────────────────────────────
+  { group:'g_susp', id:10, method:'B1', svgFn:'item10',
+    desc:{en:'Insulated conductors or single-core cables in suspended cable trunking',
+          cs:'Izolované vodiče nebo jednožilové kabely v závěsném kabelovém kanálu',
+          de:'Isolierte Leiter oder einadrige Kabel in hängendem Kabelkanal'},
+    expl:{en:'Trunking hung from ceiling on hangers. Better ventilation than wall-mounted (air circulates on all sides) but the enclosed trunking still restricts heat loss — rated B1.',
+          cs:'Kabelový kanál zavěšený na stropě. Lepší větrání než nástěnný (vzduch cirkuluje ze všech stran), ale uzavřený kanál stále omezuje odvod tepla — hodnocen B1.',
+          de:'Kabelkanal an der Decke hängend. Bessere Belüftung als wandmontiert (Luft zirkuliert allseitig), aber das geschlossene Gehäuse begrenzt die Wärmeabfuhr — bewertet B1.'}},
+
+  { group:'g_susp', id:11, method:'B2', svgFn:'item11',
+    desc:{en:'Multi-core cable in suspended cable trunking',
+          cs:'Vícežilový kabel v závěsném kabelovém kanálu',
+          de:'Mehraderkabel in hängendem Kabelkanal'},
+    expl:{en:'Same suspended arrangement as method 10 but using a multi-core cable. The cable\'s bundled cores generate more internal heat, so B2 tables apply.',
+          cs:'Stejné zavěšení jako metoda 10, ale s vícežilovým kabelem. Svázané žíly generují více vnitřního tepla, proto platí tabulky B2.',
+          de:'Gleiche hängende Anordnung wie Methode 10, aber mit Mehraderkabel. Die gebündelten Adern erzeugen mehr innere Wärme — B2-Tabellen gelten.'}},
+
+  // ── MOULDINGS ────────────────────────────────────────────────────────────────
+  { group:'g_mold', id:12, method:'A1', svgFn:'item12',
+    desc:{en:'Insulated conductors or single-core cables run in mouldings',
+          cs:'Izolované vodiče nebo jednožilové kabely vedené v kabelových lištách',
+          de:'Isolierte Leiter oder einadrige Kabel in Kabelleisten'},
+    expl:{en:'Conductors inside skirting-board or decorative mouldings fixed to a wall. The small enclosed cross-section and adjacent wall limit heat dissipation, hence rated A1.',
+          cs:'Vodiče uvnitř soklových nebo dekorativních lišt připevněných ke stěně. Malý uzavřený průřez a přiléhající stěna omezují odvod tepla — hodnoceno A1.',
+          de:'Leiter in Sockel- oder Zierleisten an der Wand. Kleiner geschlossener Querschnitt und anliegende Wand begrenzen Wärmeabfuhr — bewertet A1.'}},
+
+  { group:'g_mold', id:13, method:'A1', svgFn:'item13',
+    desc:{en:'Multi-core cable run in mouldings',
+          cs:'Vícežilový kabel vedený v kabelových lištách',
+          de:'Mehraderkabel in Kabelleisten'},
+    expl:{en:'Multi-core cable inside a moulding. Heat dissipation is equally limited by the enclosed moulding geometry — same A1 rating applies as for individual conductors.',
+          cs:'Vícežilový kabel uvnitř lišty. Odvod tepla je stejně omezen uzavřenou geometrií lišty — platí stejné hodnocení A1 jako pro jednotlivé vodiče.',
+          de:'Mehraderkabel in einer Leiste. Wärmeabfuhr ist durch die geschlossene Leistengeometrie gleichermaßen begrenzt — gleiche A1-Bewertung wie bei Einzelleitern.'}},
+
+  { group:'g_mold', id:15, method:'A1', svgFn:'item15',
+    desc:{en:'Insulated conductors in conduit or single/multi-core cable in architrave',
+          cs:'Izolované vodiče v trubce nebo jedno/vícežilový kabel v obložkové zárubeňi',
+          de:'Isolierte Leiter in Rohr oder ein-/mehradriges Kabel in der Türzarge'},
+    expl:{en:'Cable or conduit concealed inside a door architrave (the decorative frame around a door). Thermal conditions resemble mouldings — A1 applies.',
+          cs:'Kabel nebo trubka skrytá uvnitř obložkové zárubeně (dekorativní rám kolem dveří). Tepelné podmínky se podobají lištám — platí A1.',
+          de:'Kabel oder Rohr verdeckt in der Türzarge (Zierrahmen um eine Tür). Thermische Bedingungen ähnlich wie bei Leisten — A1 gilt.'}},
+
+  { group:'g_mold', id:16, method:'A1', svgFn:'item16',
+    desc:{en:'Insulated conductors in conduit or single/multi-core cable in window frames',
+          cs:'Izolované vodiče v trubce nebo jedno/vícežilový kabel v okenním rámu',
+          de:'Isolierte Leiter in Rohr oder ein-/mehradriges Kabel im Fensterrahmen'},
+    expl:{en:'Cable hidden inside window frame profiles. Often used in older buildings to run cables around windows. Thermally similar to architraves — A1 rating.',
+          cs:'Kabel skrytý uvnitř profilů okenního rámu. Často se používá ve starších budovách pro vedení kabelů kolem oken. Tepelně podobné zárubeňím — hodnocení A1.',
+          de:'Kabel im Fensterrahmen versteckt. Häufig in älteren Gebäuden um Fenster herum. Thermisch ähnlich wie Türzargen — Bewertung A1.'}},
+
+  // ── SURFACE MOUNTED ──────────────────────────────────────────────────────────
+  { group:'g_surf', id:20, method:'C', svgFn:'item20',
+    desc:{en:'Single-core or multi-core cables fixed on, or spaced less than 0.3× cable diameter from, a wooden or masonry wall',
+          cs:'Jednožilové nebo vícežilové kabely připevněné na dřevěné nebo zděné stěně nebo vzdálené méně než 0,3× průměr kabelu od stěny',
+          de:'Ein- oder mehradrige Kabel auf einer Holz- oder Mauerwerkswand befestigt oder mit Abstand < 0,3× Kabeldurchmesser'},
+    expl:{en:'Cable clipped directly to a wall surface. The wall conducts heat away on one side while the other side loses heat to air. Good capacity — method C.',
+          cs:'Kabel upnutý přímo na povrch stěny. Stěna odvádí teplo z jedné strany, druhá strana ztrácí teplo do vzduchu. Dobrá zatížitelnost — metoda C.',
+          de:'Kabel direkt an Wandoberfläche geklemmt. Wand leitet Wärme auf einer Seite ab, andere Seite gibt Wärme an Luft ab. Gute Kapazität — Methode C.'}},
+
+  { group:'g_surf', id:21, method:'C', svgFn:'item21',
+    desc:{en:'Single-core or multi-core cables fixed directly under a wooden or masonry ceiling',
+          cs:'Jednožilové nebo vícežilové kabely připevněné přímo pod dřevěným nebo zděným stropem',
+          de:'Ein- oder mehradrige Kabel direkt unter einer Holz- oder Betondecke befestigt'},
+    expl:{en:'Cable clipped to the underside of a ceiling. Heat rises to the ceiling on one side; air circulation below cools the other. Thermally rated the same as wall-mounted (method C).',
+          cs:'Kabel upnutý na spodní stranu stropu. Teplo stoupá ke stropu z jedné strany, vzduch níže chladí druhou. Tepelně hodnoceno stejně jako nástěnné uložení (metoda C).',
+          de:'Kabel unter der Decke befestigt. Wärme steigt auf der einen Seite zur Decke, Luft darunter kühlt die andere Seite. Thermisch wie Wandmontage bewertet (Methode C).'}},
+
+  // ── TRAYS & LADDERS ───────────────────────────────────────────────────────────
+  { group:'g_tray', id:30, method:'C', svgFn:'item30',
+    desc:{en:'Single-core or multi-core cables on unperforated cable tray — run horizontally or vertically',
+          cs:'Jednožilové nebo vícežilové kabely na neperforovaném kabelovém žlabu — vedené vodorovně nebo svisle',
+          de:'Ein- oder mehradrige Kabel auf ungelochter Kabelrinne — waagerecht oder senkrecht'},
+    expl:{en:'Cables laid on a solid (unperforated) tray. The solid bottom restricts airflow underneath — similar thermal performance to cables clipped to a wall, hence method C.',
+          cs:'Kabely uložené na pevném (neperforovaném) žlabu. Pevné dno omezuje proudění vzduchu pod žlabem — podobné tepelné chování jako kabely přichycené na stěně, proto metoda C.',
+          de:'Kabel auf geschlossener (ungelochter) Rinne. Fester Boden schränkt Luftzirkulation darunter ein — ähnliche thermische Leistung wie wandmontierte Kabel, daher Methode C.'}},
+
+  { group:'g_tray', id:31, method:'E or F', svgFn:'item31',
+    desc:{en:'Single-core or multi-core cables on perforated cable tray — run horizontally or vertically',
+          cs:'Jednožilové nebo vícežilové kabely na perforovaném kabelovém žlabu — vedené vodorovně nebo svisle',
+          de:'Ein- oder mehradrige Kabel auf gelochter Kabelrinne — waagerecht oder senkrecht'},
+    expl:{en:'Cables on a perforated (ventilated) tray. Airflow through the perforations dramatically improves cooling — this gives one of the highest current capacities (E/F).',
+          cs:'Kabely na perforovaném (větraném) žlabu. Proudění vzduchu skrz perforace výrazně zlepšuje chlazení — to dává jednu z nejvyšších proudových zatížitelností (E/F).',
+          de:'Kabel auf gelochter (belüfteter) Rinne. Luftstrom durch die Perforation verbessert die Kühlung erheblich — eine der höchsten Strombelastbarkeiten (E/F).'}},
+
+  { group:'g_tray', id:32, method:'E or F', svgFn:'item32',
+    desc:{en:'Single-core or multi-core cables on cable ladder, brackets, or cleats',
+          cs:'Jednožilové nebo vícežilové kabely na kabelovém žebříku, konzolách nebo příchytkách',
+          de:'Ein- oder mehradrige Kabel auf Kabelleiter, Konsolen oder Schellen'},
+    expl:{en:'Cables resting on ladder-type supports. Maximum air exposure on all sides provides excellent cooling — method E (multi-core) or F (single-core trefoil) with highest ampacity.',
+          cs:'Kabely uložené na žebříkových podporách. Maximální přístup vzduchu ze všech stran zajišťuje vynikající chlazení — metoda E (vícežilový) nebo F (jednožilový trojúhelník) s nejvyšší zatížitelností.',
+          de:'Kabel auf Leitertyp-Tragstrukturen. Maximale Luftexposition auf allen Seiten bietet exzellente Kühlung — Methode E (mehradrig) oder F (einadrig Dreieck) mit höchster Belastbarkeit.'}},
+
+  { group:'g_tray', id:33, method:'E or F', svgFn:'item33',
+    desc:{en:'Single-core or multi-core cables spaced more than 0.3× cable diameter from wall or from each other',
+          cs:'Jednožilové nebo vícežilové kabely vzdálené více než 0,3× průměr kabelu od stěny nebo od sebe',
+          de:'Ein- oder mehradrige Kabel mit Abstand > 0,3× Kabeldurchmesser zur Wand oder untereinander'},
+    expl:{en:'Cables held away from any surface so air can circulate freely all around. This spacing eliminates mutual heating and wall proximity effects — method E/F capacity applies.',
+          cs:'Kabely drženy od povrchu, aby vzduch mohl volně cirkulovat kolem. Tato vzdálenost eliminuje vzájemné ohřívání a blízkost stěny — platí zatížitelnost E/F.',
+          de:'Kabel mit Abstand zu allen Oberflächen, sodass Luft frei zirkulieren kann. Abstand eliminiert gegenseitige Erwärmung und Wandnähe — E/F-Belastbarkeit gilt.'}},
+
+  { group:'g_tray', id:34, method:'E or F', svgFn:'item34',
+    desc:{en:'Single-core or multi-core cables suspended from or incorporating a support (catenary) wire',
+          cs:'Jednožilové nebo vícežilové kabely zavěšené na nosném (katenárním) drátu nebo jej obsahující',
+          de:'Ein- oder mehradrige Kabel hängend an oder mit einem Tragseil'},
+    expl:{en:'Cables hanging freely from a catenary wire strung between supports — typical for overhead spans. Free hanging gives excellent all-round air access; E/F tables apply.',
+          cs:'Kabely volně visící z nosného drátu nataženého mezi podporami — typické pro mezipodporová pole. Volné zavěšení zajišťuje vynikající přístup vzduchu; platí tabulky E/F.',
+          de:'Kabel frei hängend an einem zwischen Stützen gespannten Tragseil — typisch für Freiluftspannfelder. Freies Hängen bietet exzellenten allseitigen Luftzutritt; E/F-Tabellen gelten.'}},
+
+  { group:'g_tray', id:35, method:'G', svgFn:'item35',
+    desc:{en:'Bare or insulated conductors on insulators',
+          cs:'Holé nebo izolované vodiče na izolátorech',
+          de:'Nackte oder isolierte Leiter auf Isolatoren'},
+    expl:{en:'Conductors mounted on ceramic or polymer insulators with full air exposure on all sides. This is the best possible thermal condition — method G gives the highest current rating.',
+          cs:'Vodiče namontované na keramických nebo polymerních izolátorech s plným přístupem vzduchu ze všech stran. Nejlepší možné tepelné podmínky — metoda G dává nejvyšší proudovou zatížitelnost.',
+          de:'Leiter auf keramischen oder Polymer-Isolatoren mit vollständigem allseitigen Luftzutritt. Beste mögliche Wärmebedingung — Methode G ergibt höchste Strombelastbarkeit.'}},
+
+  // ── BUILDING VOIDS & DUCTING ─────────────────────────────────────────────────
+  { group:'g_void', id:40, method:'B1/B2', svgFn:'item40',
+    desc:{en:'Single-core or multi-core cable in a building void: B2 if void < 5× cable dia.; B1 if void ≥ 5× cable dia. (up to < 20×)',
+          cs:'Jednožilový nebo vícežilový kabel v dutině stavby: B2 pokud dutina < 5× průměr kabelu; B1 pokud dutina ≥ 5× průměr kabelu (do < 20×)',
+          de:'Ein- oder mehradriges Kabel im Gebäudehohlraum: B2 bei Hohlraum < 5× Kabeldurchmesser; B1 bei ≥ 5× (bis < 20×)'},
+    expl:{en:'Cable run through a hollow space inside a building structure (e.g. hollow block wall, floor void). The effective method depends on how large the void is relative to cable diameter.',
+          cs:'Kabel vedený dutým prostorem uvnitř stavební konstrukce (např. dutinová stěna, dutina podlahy). Použitá metoda závisí na tom, jak velká je dutina vzhledem k průměru kabelu.',
+          de:'Kabel durch einen Hohlraum im Gebäude (z.B. Hohlblockwand, Bodenhohlraum). Methode hängt davon ab, wie groß der Hohlraum im Verhältnis zum Kabeldurchmesser ist.'}},
+
+  { group:'g_void', id:41, method:'B1/B2', svgFn:'item41',
+    desc:{en:'Insulated conductors in conduit in a building void (conduit dia. conditions apply)',
+          cs:'Izolované vodiče v trubce v dutině stavby (platí podmínky průměru trubky)',
+          de:'Isolierte Leiter in Rohr im Gebäudehohlraum (Rohrdurchmesserbedingungen gelten)'},
+    expl:{en:'Individual conductors inside a conduit that runs through a building void. Method B2 or B1 applies based on the void-to-conduit diameter ratio — same principle as item 40.',
+          cs:'Jednotlivé vodiče uvnitř trubky vedené dutinou stavby. Platí metoda B2 nebo B1 na základě poměru dutina/průměr trubky — stejný princip jako u položky 40.',
+          de:'Einzelleiter in Rohr durch Gebäudehohlraum. Methode B2 oder B1 gilt je nach Verhältnis Hohlraum/Rohrdurchmesser — gleiches Prinzip wie bei Pos. 40.'}},
+
+  { group:'g_void', id:42, method:'B1/B2', svgFn:'item42',
+    desc:{en:'Single-core or multi-core cable in conduit in a building void',
+          cs:'Jednožilový nebo vícežilový kabel v trubce v dutině stavby',
+          de:'Ein- oder mehradriges Kabel in Rohr im Gebäudehohlraum'},
+    expl:{en:'Multi-core cable inside a conduit run through a building void. Two levels of thermal enclosure (conduit + void) apply; method B1/B2 per void-size conditions.',
+          cs:'Vícežilový kabel uvnitř trubky vedené dutinou stavby. Platí dvě úrovně tepelného uzavření (trubka + dutina); metoda B1/B2 dle podmínek velikosti dutiny.',
+          de:'Mehraderkabel in Rohr durch Gebäudehohlraum. Zwei Ebenen thermischer Einschließung (Rohr + Hohlraum); Methode B1/B2 je nach Hohlraumgröße.'}},
+
+  { group:'g_void', id:43, method:'B1/B2', svgFn:'item43',
+    desc:{en:'Insulated conductors in cable ducting (trunking) in a building void',
+          cs:'Izolované vodiče v kabelovém kanálu (žlabu) v dutině stavby',
+          de:'Isolierte Leiter in Kabelkanal im Gebäudehohlraum'},
+    expl:{en:'Separate conductors inside a rectangular trunking/duct running through a hollow structure. Size conditions determine whether B1 or B2 applies.',
+          cs:'Oddělené vodiče uvnitř obdélníkového žlabu/kanálu vedeného dutou konstrukcí. Podmínky velikosti určují, zda platí B1 nebo B2.',
+          de:'Einzelleiter in rechteckigem Kabelkanal durch Hohlraumkonstruktion. Größenbedingungen entscheiden über B1 oder B2.'}},
+
+  { group:'g_void', id:44, method:'B1/B2', svgFn:'item44',
+    desc:{en:'Single-core or multi-core cable in cable ducting in a building void',
+          cs:'Jednožilový nebo vícežilový kabel v kabelovém kanálu v dutině stavby',
+          de:'Ein- oder mehradriges Kabel in Kabelkanal im Gebäudehohlraum'},
+    expl:{en:'Multi-core cable laid inside a duct or trunking within a building void. The same dimensional conditions apply as for items 40–43 to determine B1 vs B2.',
+          cs:'Vícežilový kabel uložený uvnitř kanálu nebo žlabu v dutině stavby. Platí stejné rozměrové podmínky jako pro položky 40–43 pro určení B1 vs B2.',
+          de:'Mehraderkabel in Kabelkanal in Gebäudehohlraum. Gleiche Maßbedingungen wie bei Pos. 40–43 für die Bestimmung B1 vs B2.'}},
+
+  { group:'g_void', id:45, method:'B1/B2', svgFn:'item45',
+    desc:{en:'Insulated conductors in cable ducting in masonry (thermal resistivity ≤ 2 K·m/W)',
+          cs:'Izolované vodiče v kabelovém kanálu ve zdivu (tepelný odpor ≤ 2 K·m/W)',
+          de:'Isolierte Leiter in Kabelkanal in Mauerwerk (Wärmewiderstand ≤ 2 K·m/W)'},
+    expl:{en:'Trunking embedded in masonry (concrete, brick, plaster). Masonry conducts heat moderately well; method B1/B2 applies per void conditions. Better than insulated wall but worse than open air.',
+          cs:'Žlab zabudovaný do zdiva (beton, cihla, omítka). Zdivo odvádí teplo středně dobře; platí metoda B1/B2 dle podmínek dutiny. Lepší než izolovaná stěna, horší než volný vzduch.',
+          de:'Kabelkanal in Mauerwerk (Beton, Ziegel, Putz). Mauerwerk leitet Wärme mäßig gut; B1/B2 je nach Hohlraumgröße. Besser als gedämmte Wand, schlechter als Freiluft.'}},
+
+  { group:'g_void', id:46, method:'B1/B2', svgFn:'item46',
+    desc:{en:'Single-core or multi-core cable in cable ducting in masonry (thermal resistivity ≤ 2 K·m/W)',
+          cs:'Jednožilový nebo vícežilový kabel v kabelovém kanálu ve zdivu (tepelný odpor ≤ 2 K·m/W)',
+          de:'Ein- oder mehradriges Kabel in Kabelkanal in Mauerwerk (Wärmewiderstand ≤ 2 K·m/W)'},
+    expl:{en:'Multi-core cable in a duct embedded in standard masonry. Same as item 45 but using a cable rather than individual conductors. Method B1/B2 per dimensional and thermal conditions.',
+          cs:'Vícežilový kabel v kanálu zabudovaném do standardního zdiva. Stejné jako položka 45, ale s kabelem místo jednotlivých vodičů. Metoda B1/B2 dle rozměrových a tepelných podmínek.',
+          de:'Mehraderkabel in Kabelkanal in normalem Mauerwerk. Wie Pos. 45, jedoch Kabel statt Einzelleitern. B1/B2 je nach Maß- und Wärmebedingungen.'}},
+
+  { group:'g_void', id:'46B', method:'B1/B2', svgFn:'item46B',
+    desc:{en:'Single-core or multi-core cable in cable ducting in masonry — with raised-floor surface thermal resistance ≥ 2 K·m/W',
+          cs:'Jednožilový nebo vícežilový kabel v kabelovém kanálu ve zdivu — s tepelným odporem povrchové vrstvy podlahy ≥ 2 K·m/W',
+          de:'Ein- oder mehradriges Kabel in Kabelkanal in Mauerwerk — mit Bodenbelag-Wärmewiderstand ≥ 2 K·m/W'},
+    expl:{en:'Like item 46 but the masonry is additionally covered by a thermally resistant raised-floor finish (e.g. floating screed or wood). The extra surface layer further reduces heat escape — slightly lower capacity.',
+          cs:'Jako položka 46, ale zdivo je navíc pokryto tepelně odporným povrchem (např. plovoucí potěr nebo dřevo). Dodatečná povrchová vrstva dále snižuje únik tepla — mírně nižší zatížitelnost.',
+          de:'Wie Pos. 46, aber das Mauerwerk ist zusätzlich von einem thermisch widerstandsfähigen Bodenbelag (z.B. schwimmendem Estrich oder Holz) bedeckt. Zusätzliche Schicht reduziert Wärmeableitung.'}},
+
+  { group:'g_void', id:47, method:'B1/B2', svgFn:'item47',
+    desc:{en:'Single-core or multi-core cable in a ceiling void or raised floor',
+          cs:'Jednožilový nebo vícežilový kabel v podhledové dutině nebo zdvižené podlaze',
+          de:'Ein- oder mehradriges Kabel im Deckenhohlraum oder unter Doppelboden'},
+    expl:{en:'Cable run in the air gap between a false/suspended ceiling and the structural ceiling, or under a raised access floor. Ventilation depends heavily on the specific system — B1/B2 as a safe default.',
+          cs:'Kabel vedený vzduchovou mezerou mezi kazetovým/sníženým stropem a nosným stropem nebo pod zdvíhanou podlahou. Větrání závisí na konkrétním systému — B1/B2 jako bezpečná výchozí hodnota.',
+          de:'Kabel im Luftspalt zwischen Unterdecke und Rohdecke oder unter Doppelboden. Belüftung hängt stark vom System ab — B1/B2 als sicherer Standardwert.'}},
+
+  // ── CHANNELS & FLUSH TRUNKING ─────────────────────────────────────────────────
+  { group:'g_chan', id:52, method:'B1/B2', svgFn:'item52',
+    desc:{en:'Insulated conductors or cables in flush cable trunking (built into wall or floor)',
+          cs:'Izolované vodiče nebo kabely v zapuštěném kabelovém kanálu (zabudovaném ve stěně nebo podlaze)',
+          de:'Isolierte Leiter oder Kabel in bündigem Kabelkanal (in Wand oder Boden eingelassen)'},
+    expl:{en:'Trunking recessed flush into a wall or floor surface. The surrounding structure conducts away some heat. Method B1 for single-core, B2 for multi-core.',
+          cs:'Žlab zapuštěný do roviny povrchu stěny nebo podlahy. Okolní konstrukce odvádí část tepla. Metoda B1 pro jednožilový, B2 pro vícežilový.',
+          de:'Bündiger Kabelkanal in Wand oder Boden eingelassen. Umgebende Konstruktion leitet etwas Wärme ab. B1 für einadrige, B2 für mehradrige Kabel.'}},
+
+  { group:'g_chan', id:53, method:'B1/B2', svgFn:'item53',
+    desc:{en:'Insulated conductors or cables in conduit in an unventilated cable channel',
+          cs:'Izolované vodiče nebo kabely v trubce v nevětraném kabelovém kanálu',
+          de:'Isolierte Leiter oder Kabel in Rohr im unbelüfteten Kabelkanal'},
+    expl:{en:'Conduit laid inside a closed, unventilated channel (e.g. a concrete floor duct without air openings). Trapped heat in both the conduit and the closed channel reduces capacity — B1/B2 per void size.',
+          cs:'Trubka uložená uvnitř uzavřeného, nevětraného kanálu (např. betonový kanál v podlaze bez vzduchových otvorů). Zachycené teplo v trubce i uzavřeném kanálu snižuje zatížitelnost — B1/B2 dle velikosti dutiny.',
+          de:'Rohr in geschlossenem, unbelüftetem Kanal (z.B. Betonbodenkanal ohne Luftöffnungen). Wärmestau in Rohr und Kanal reduziert Belastbarkeit — B1/B2 je nach Hohlraumgröße.'}},
+
+  { group:'g_chan', id:55, method:'B1', svgFn:'item55',
+    desc:{en:'Insulated conductors in conduit in an open or ventilated cable channel in the floor',
+          cs:'Izolované vodiče v trubce v otevřeném nebo větraném kabelovém kanálu v podlaze',
+          de:'Isolierte Leiter in Rohr im offenen oder belüfteten Kabelkanal im Boden'},
+    expl:{en:'Conduit inside an open or vented floor channel. Airflow in the channel removes heat from the conduit exterior, improving capacity vs the unventilated case — rated B1.',
+          cs:'Trubka uvnitř otevřeného nebo větraného kanálu v podlaze. Proudění vzduchu v kanálu odvádí teplo z vnějšku trubky, čímž zlepšuje zatížitelnost oproti nevětrané variantě — hodnoceno B1.',
+          de:'Rohr in offenem oder belüftetem Bodenkanal. Luftstrom im Kanal kühlt Rohraußenwand — bessere Belastbarkeit als unbelüftet — bewertet B1.'}},
+
+  { group:'g_chan', id:56, method:'B1', svgFn:'item56',
+    desc:{en:'Sheathed single-core or multi-core cable in an open or ventilated cable channel',
+          cs:'Opláštěný jednožilový nebo vícežilový kabel v otevřeném nebo větraném kabelovém kanálu',
+          de:'Manteliertes ein- oder mehradriges Kabel in offenem oder belüftetem Kabelkanal'},
+    expl:{en:'Cable (not in conduit) lying directly in an open, ventilated channel. Better heat dissipation than conduit-in-channel because the cable jacket is directly exposed to the channel air — B1.',
+          cs:'Kabel (ne v trubce) ležící přímo v otevřeném, větraném kanálu. Lepší odvod tepla než trubka v kanálu, protože plášť kabelu je přímo vystaven vzduchu kanálu — B1.',
+          de:'Kabel (ohne Rohr) direkt in offenem, belüftetem Kanal. Bessere Wärmeabgabe als Rohr-in-Kanal, weil Kabelmantel direkt der Kanalluft ausgesetzt — B1.'}},
+
+  // ── EMBEDDED IN MASONRY ───────────────────────────────────────────────────────
+  { group:'g_emb', id:57, method:'C', svgFn:'item57',
+    desc:{en:'Single-core or multi-core cable direct in masonry (thermal resistivity ≤ 2 K·m/W) — without added mechanical protection',
+          cs:'Jednožilový nebo vícežilový kabel přímo ve zdivu (tepelný odpor ≤ 2 K·m/W) — bez přídavné mechanické ochrany',
+          de:'Ein- oder mehradriges Kabel direkt in Mauerwerk (Wärmewiderstand ≤ 2 K·m/W) — ohne zusätzlichen mechanischen Schutz'},
+    expl:{en:'Cable plastered directly into masonry (concrete, brick, plaster) with no conduit or duct. Masonry conducts heat reasonably well — rated method C, equivalent to clipping on a wall.',
+          cs:'Kabel přímo zaomítnutý do zdiva (beton, cihla, omítka) bez trubky nebo kanálu. Zdivo odvádí teplo přiměřeně dobře — hodnoceno metodou C, ekvivalentní přichycení na stěně.',
+          de:'Kabel direkt in Mauerwerk (Beton, Ziegel, Putz) verputzt, ohne Rohr oder Kanal. Mauerwerk leitet Wärme akzeptabel — bewertet als Methode C, gleichwertig mit Wandmontage.'}},
+
+  { group:'g_emb', id:58, method:'C', svgFn:'item58',
+    desc:{en:'Single-core or multi-core cable in masonry — with added mechanical protection (conduit)',
+          cs:'Jednožilový nebo vícežilový kabel ve zdivu — s přídavnou mechanickou ochranou (trubkou)',
+          de:'Ein- oder mehradriges Kabel in Mauerwerk — mit zusätzlichem mechanischen Schutz (Rohr)'},
+    expl:{en:'Cable inside a conduit that is embedded in masonry. The conduit provides mechanical protection. The masonry still conducts heat away — thermal performance similar to item 57, rated C.',
+          cs:'Kabel uvnitř trubky zabudované do zdiva. Trubka poskytuje mechanickou ochranu. Zdivo stále odvádí teplo — tepelné chování podobné položce 57, hodnoceno C.',
+          de:'Kabel in Rohr, eingebettet in Mauerwerk. Rohr bietet mechanischen Schutz. Mauerwerk leitet noch Wärme ab — thermisch ähnlich wie Pos. 57, bewertet C.'}},
+
+  // ── UNDERGROUND ───────────────────────────────────────────────────────────────
+  { group:'g_gnd', id:70, method:'D1', svgFn:'item70',
+    desc:{en:'Multi-core cable in conduit or cable ducting in the ground',
+          cs:'Vícežilový kabel v trubce nebo kabelovém kanálu v zemi',
+          de:'Mehraderkabel in Rohr oder Kabelschutzrohr im Erdreich'},
+    expl:{en:'Multi-core cable pulled through a duct or conduit buried in soil. Heat must conduct through conduit wall and then through soil — a slow process. Reference method D1; soil resistivity 2.5 K·m/W assumed.',
+          cs:'Vícežilový kabel protažený trubkou nebo kanálem zahrabaným v zemi. Teplo musí prostupovat stěnou trubky a pak zemí — pomalý proces. Referenční metoda D1; předpokládaný odpor půdy 2,5 K·m/W.',
+          de:'Mehraderkabel durch vergrabenes Rohr oder Kabelschutzrohr gezogen. Wärme muss Rohrwand und Erdreich durchdringen — langsamer Prozess. Referenzmethode D1; Bodenwiderstand 2,5 K·m/W.'}},
+
+  { group:'g_gnd', id:71, method:'D1', svgFn:'item71',
+    desc:{en:'Single-core cables in conduit or cable ducting in the ground',
+          cs:'Jednožilové kabely v trubce nebo kabelovém kanálu v zemi',
+          de:'Einadrige Kabel in Rohr oder Kabelschutzrohr im Erdreich'},
+    expl:{en:'Same as method 70 but individual single-core cables are drawn through the duct. Method D1 applies; derating factors for grouping and soil temperature should be applied as needed.',
+          cs:'Stejné jako metoda 70, ale jednotlivé jednožilové kabely jsou protaženy trubkou. Platí metoda D1; korekční faktory pro seskupení a teplotu půdy je třeba aplikovat dle potřeby.',
+          de:'Wie Methode 70, aber Einzeladerkabel durch das Rohr. D1 gilt; Korrekturfaktoren für Häufung und Bodentemperatur bei Bedarf anwenden.'}},
+
+  { group:'g_gnd', id:72, method:'D2', svgFn:'item72',
+    desc:{en:'Single-core or multi-core cable laid directly in the ground (no conduit)',
+          cs:'Jednožilový nebo vícežilový kabel uložený přímo v zemi (bez trubky)',
+          de:'Ein- oder mehradriges Kabel direkt im Erdreich verlegt (ohne Rohr)'},
+    expl:{en:'Cable buried directly in soil without any duct. The cable jacket is in direct contact with soil — better thermal contact than through a duct — so D2 allows higher ampacity than D1.',
+          cs:'Kabel pohřbený přímo v zemi bez kanálu. Plášť kabelu je v přímém kontaktu s půdou — lepší tepelný kontakt než přes kanál — D2 umožňuje vyšší proudovou zatížitelnost než D1.',
+          de:'Kabel direkt in Erde ohne Rohr. Kabelmantel in direktem Kontakt mit Boden — besserer thermischer Kontakt als durch Rohr — D2 erlaubt höhere Strombelastbarkeit als D1.'}},
+
+  { group:'g_gnd', id:73, method:'D2', svgFn:'item73',
+    desc:{en:'Single-core or multi-core cable laid directly in the ground with added mechanical protection (tiles, covers)',
+          cs:'Jednožilový nebo vícežilový kabel uložený přímo v zemi s přídavnou mechanickou ochranou (dlaždice, kryty)',
+          de:'Ein- oder mehradriges Kabel direkt im Erdreich mit zusätzlichem mechanischen Schutz (Platten, Abdeckungen)'},
+    expl:{en:'Like method 72 but with protective tiles, bricks, or covers placed above the cable to prevent accidental damage. The thin cover has negligible thermal effect — D2 tables still apply.',
+          cs:'Jako metoda 72, ale nad kabelem jsou umístěny ochranné dlaždice, cihly nebo kryty jako prevence náhodného poškození. Tenký kryt má zanedbatelný tepelný vliv — stále platí tabulky D2.',
+          de:'Wie Methode 72, aber mit Schutzplatten, Ziegeln oder Abdeckungen über dem Kabel. Dünne Abdeckung hat vernachlässigbaren thermischen Einfluss — D2-Tabellen gelten.'}},
+];
+
+// ─── group map ────────────────────────────────────────────────────────────────
+const GMAP = Object.fromEntries(GROUPS.map(g => [g.id, g]));
+
+// ─── panel relevance data ────────────────────────────────────────────────────
+// r: 'yes' | 'partial' | 'no'
+const PANEL = {
+  1:  {r:'no',   en:'—', cs:'—', de:'—'},
+  2:  {r:'no',   en:'—', cs:'—', de:'—'},
+  3:  {r:'no',   en:'—', cs:'—', de:'—'},
+  4:  {r:'partial',
+       en:'External conduit entering the panel enclosure from wall or floor.',
+       cs:'Vnější trubka vstupující do skříně rozvaděče ze stěny nebo podlahy.',
+       de:'Außenrohr, das von Wand oder Boden in den Schaltschrank eintritt.'},
+  5:  {r:'partial',
+       en:'External conduit with multi-core cable entering the panel.',
+       cs:'Vnější trubka s vícežilovým kabelem vstupující do rozvaděče.',
+       de:'Außenrohr mit Mehraderkabel, das in den Schaltschrank eintritt.'},
+  6:  {r:'yes',
+       en:'Primary method for horizontal cable trunking (e.g. Hager, Schneider) organising control and signal wiring on the panel backplate between DIN rail levels.',
+       cs:'Hlavní metoda pro vodorovné kabelové žlaby (např. Hager, Schneider) organizující řídicí a signální vedení na montážní desce rozvaděče mezi úrovněmi DIN lišt.',
+       de:'Primärmethode für waagerechte Kabelkanäle (z.B. Hager, Schneider) zur Organisation von Steuer- und Signalleitungen auf der Montageplatte zwischen DIN-Schienenebenen.'},
+  7:  {r:'yes',
+       en:'Vertical cable trunking on panel sides connecting horizontal runs; routes cables up/down between rows of components.',
+       cs:'Svislý kabelový žlab na stranách rozvaděče spojující vodorovné vedení; vede kabely nahoru/dolů mezi řadami komponent.',
+       de:'Senkrechter Kabelkanal an den Seiten des Schaltschranks verbindet waagerechte Führungen; leitet Kabel zwischen Komponentenreihen nach oben/unten.'},
+  8:  {r:'yes',
+       en:'Horizontal trunking for multi-core power cables inside the panel; sized larger than control cable trunking.',
+       cs:'Vodorovný žlab pro vícežilové silové kabely uvnitř rozvaděče; dimenzovaný větší než žlab pro řídicí kabely.',
+       de:'Waagerechter Kabelkanal für Mehraderstarkstromkabel im Schaltschrank; größer dimensioniert als Steuerkabelkanal.'},
+  9:  {r:'yes',
+       en:'Vertical power cable trunking inside the panel; runs multi-core cables between rows or to the cable entry area.',
+       cs:'Svislý silový kabelový žlab uvnitř rozvaděče; vede vícežilové kabely mezi řadami nebo do oblasti kabelového vstupu.',
+       de:'Senkrechter Starkstromkabelkanal im Schaltschrank; führt Mehraderkabel zwischen Reihen oder zur Kabeleinführung.'},
+  10: {r:'partial',
+       en:'Overhead cable trunking above large MCC or switchgear lineups in a switchroom.',
+       cs:'Závěsný kabelový žlab nad velkými MCC nebo rozvodnicemi v rozvodně.',
+       de:'Abgehängter Kabelkanal über großen MCC- oder Schaltanlagen-Aufstellungen im Schalthaus.'},
+  11: {r:'partial',
+       en:'Overhead suspended trunking for power cables above MCC lineups.',
+       cs:'Závěsný žlab pro silové kabely nad sestavou MCC.',
+       de:'Abgehängte Kabelführung für Starkstromkabel über MCC-Aufstellungen.'},
+  12: {r:'no',   en:'—', cs:'—', de:'—'},
+  13: {r:'no',   en:'—', cs:'—', de:'—'},
+  15: {r:'no',   en:'—', cs:'—', de:'—'},
+  16: {r:'no',   en:'—', cs:'—', de:'—'},
+  20: {r:'yes',
+       en:'Cables fixed to panel backplate, frame, or side sheets with cable saddles or tie-down points — the standard for wiring that runs outside trunking.',
+       cs:'Kabely upevněné k montážní desce, rámu nebo bočnicím rozvaděče kabelovými příchytkami nebo svorkami — standard pro vedení mimo žlaby.',
+       de:'Kabel mit Kabelschellen oder Befestigungspunkten an Montageplatte, Rahmen oder Seitenwänden befestigt — Standard für Verdrahtung außerhalb von Kabelkanälen.'},
+  21: {r:'partial',
+       en:'Cables fixed to the roof frame or top plate inside large panel enclosures; common in walk-in switchrooms.',
+       cs:'Kabely upevněné k hornímu rámu nebo stropní desce uvnitř velkých skříní rozvaděče; běžné v průchozích rozvodnách.',
+       de:'Kabel an Dachrahmen oder oberer Platte in großen Schaltschrankgehäusen befestigt; verbreitet in begehbaren Schaltanlagen.'},
+  30: {r:'yes',
+       en:'Solid cable tray below or beside the panel for routing outgoing power cables to the cable basement or trunking system.',
+       cs:'Pevný kabelový žlab pod nebo vedle rozvaděče pro vedení odcházejících silových kabelů do kabelového kanálu nebo suterénu.',
+       de:'Geschlossene Kabelrinne unterhalb oder neben dem Schaltschrank zur Führung abgehender Starkstromkabel in den Kabelkeller oder das Kabelkanalsystem.'},
+  31: {r:'yes',
+       en:'Perforated cable tray for cable management in cable rooms or substation areas adjacent to main panels; excellent heat dissipation for high-current outgoing cables.',
+       cs:'Perforovaný kabelový žlab pro správu kabelů v kabelových místnostech nebo rozvodnách sousedících s hlavními rozvaděči; vynikající odvod tepla pro silové výstupní kabely.',
+       de:'Gelochte Kabelrinne für das Kabelmanagement in Kabelräumen oder Stationsräumen neben Hauptschalttafeln; hervorragende Wärmeabfuhr für hochstromige Abgangsleiter.'},
+  32: {r:'yes',
+       en:'Cable ladder in substation or MCC cable rooms; supports heavy power cables entering/leaving large distribution panels.',
+       cs:'Kabelový žebřík v rozvodně nebo kabelové místnosti MCC; nese silné silové kabely vstupující/vystupující z velkých rozváděčů.',
+       de:'Kabelleiter in Unterstation oder MCC-Kabelräumen; trägt schwere Starkstromkabel, die in große Verteiltafeln ein-/austreten.'},
+  33: {r:'partial',
+       en:'Applies to open busbar arrangements requiring minimum air clearance spacing in open-type switchgear (e.g. bare busbars spaced from earthed metal).',
+       cs:'Platí pro otevřená přípojnicová uspořádání vyžadující minimální vzdušné vzdálenosti v otevřených rozvaděčích (např. holé přípojnice vzdálené od uzemněného kovu).',
+       de:'Gilt für offene Sammelschienensysteme mit Mindestluftstrecken in offenen Schaltanlagen (z.B. nackte Sammelschienen mit Abstand zu geerdeten Teilen).'},
+  34: {r:'no',   en:'—', cs:'—', de:'—'},
+  35: {r:'yes',
+       en:'Main copper/aluminium busbars mounted on insulator supports inside the panel — the standard method for main busbar systems (PE, L1/L2/L3, N). Also used for busbar trunking risers.',
+       cs:'Hlavní měděné/hliníkové přípojnice namontované na izolátorových podpěrách uvnitř rozvaděče — standardní metoda pro hlavní přípojnicové systémy (PE, L1/L2/L3, N). Používá se také pro stoupací přípojnicové systémy.',
+       de:'Haupt-Kupfer-/Aluminiumsammelschienen auf Isolatorenstützen im Schaltschrank — Standardmethode für Hauptsammelschienensysteme (PE, L1/L2/L3, N). Auch für Sammelschienensteiger verwendet.'},
+  40: {r:'no',   en:'—', cs:'—', de:'—'},
+  41: {r:'no',   en:'—', cs:'—', de:'—'},
+  42: {r:'no',   en:'—', cs:'—', de:'—'},
+  43: {r:'no',   en:'—', cs:'—', de:'—'},
+  44: {r:'no',   en:'—', cs:'—', de:'—'},
+  45: {r:'no',   en:'—', cs:'—', de:'—'},
+  46: {r:'no',   en:'—', cs:'—', de:'—'},
+  '46B':{r:'no', en:'—', cs:'—', de:'—'},
+  47: {r:'no',   en:'—', cs:'—', de:'—'},
+  52: {r:'partial',
+       en:'Flush-mounted trunking sometimes used in panel door designs for wiring to door-mounted indicators, switches, or HMI panels.',
+       cs:'Zapuštěné žlaby se někdy používají v konstrukci dveří rozvaděče pro vedení k indikátorům, přepínačům nebo HMI panelům montovaným na dveřích.',
+       de:'Bündiger Kabelkanal manchmal in Schaltschranktürgestaltung für Verdrahtung zu türmontierten Anzeigen, Schaltern oder HMI-Panels verwendet.'},
+  53: {r:'no',   en:'—', cs:'—', de:'—'},
+  55: {r:'no',   en:'—', cs:'—', de:'—'},
+  56: {r:'no',   en:'—', cs:'—', de:'—'},
+  57: {r:'no',   en:'—', cs:'—', de:'—'},
+  58: {r:'no',   en:'—', cs:'—', de:'—'},
+  70: {r:'no',   en:'—', cs:'—', de:'—'},
+  71: {r:'no',   en:'—', cs:'—', de:'—'},
+  72: {r:'no',   en:'—', cs:'—', de:'—'},
+  73: {r:'no',   en:'—', cs:'—', de:'—'},
+};
+
+// ─── render ───────────────────────────────────────────────────────────────────
+function panelCell(id, l) {
+  const p = PANEL[id];
+  if (!p) return '<span class="prelvt pno">—</span>';
+  const label = {yes:{en:'Relevant',cs:'Relevantní',de:'Relevant'}, partial:{en:'Partial',cs:'Částečně',de:'Teilweise'}, no:{en:'N/A',cs:'N/A',de:'N/A'}};
+  const cls = {yes:'pyes', partial:'ppart', no:'pno'};
+  const note = p[l] !== '—' ? `<div class="pnote">${p[l]}</div>` : '';
+  return `<span class="prelvt ${cls[p.r]}">${label[p.r][l]}</span>${note}`;
+}
+
+function render() {
+  const tbody = document.getElementById('tbody');
+  let lastGroup = null;
+  let rows = '';
+
+  ITEMS.forEach(item => {
+    if (item.group !== lastGroup) {
+      const g = GMAP[item.group];
+      rows += `<tr class="group-hdr" data-group="${item.group}">
+        <td colspan="5">${g[curLang]}</td>
+      </tr>`;
+      lastGroup = item.group;
+    }
+    const c = MC[item.method] || '#cba6f7';
+    const svgMarkup = G[item.svgFn](c);
+    const bc = badgeClass(item.method);
+    rows += `<tr data-id="${item.id}" data-method="${item.method}" data-group="${item.group}">
+      <td class="td-n">${item.id}</td>
+      <td class="td-m"><span class="mbadge ${bc}">${item.method}</span></td>
+      <td class="td-svg">${svgMarkup}</td>
+      <td class="td-desc">${item.desc[curLang]}</td>
+      <td class="td-ex">${item.expl[curLang]}</td>
+      <td class="td-panel">${panelCell(item.id, curLang)}</td>
+    </tr>`;
+  });
+  tbody.innerHTML = rows;
+  applyFilters();
+}
+
+// ─── filters ──────────────────────────────────────────────────────────────────
+function setLang(l) {
+  curLang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === l.toUpperCase());
+  });
+  // Update table header labels
+  document.getElementById('th-desc').textContent =
+    {en:'Standard Description',cs:'Popis z normy',de:'Normbeschreibung'}[l];
+  document.getElementById('th-ex').textContent =
+    {en:'Plain Explanation',cs:'Jednoduché vysvětlení',de:'Einfache Erklärung'}[l];
+  document.getElementById('th-panel').textContent =
+    {en:'Panel / Switchgear Use',cs:'Použití v rozvaděči',de:'Verwendung im Schaltschrank'}[l];
+  // Re-render text content only (keep SVGs)
+  document.querySelectorAll('#tbody tr[data-id]').forEach(tr => {
+    const id = tr.dataset.id;
+    const item = ITEMS.find(i => String(i.id) === id);
+    if (!item) return;
+    tr.querySelector('.td-desc').textContent = item.desc[l];
+    tr.querySelector('.td-ex').textContent = item.expl[l];
+    tr.querySelector('.td-panel').innerHTML = panelCell(item.id, l);
+  });
+  // Update group headers
+  document.querySelectorAll('.group-hdr').forEach(tr => {
+    const g = GMAP[tr.dataset.group];
+    if (g) tr.querySelector('td').textContent = g[l];
+  });
+  applyFilters();
+}
+
+function filterMethod(m) {
+  curMethod = m;
+  document.querySelectorAll('.mpill').forEach(p => {
+    const pm = p.textContent.replace(/\s*/g,'');
+    p.classList.toggle('on',
+      m === 'all' || pm === 'All' ||
+      (m === 'A' && (pm === 'A1/A2')) ||
+      (m === 'B' && (pm === 'B1/B2')) ||
+      (m === 'C' && pm === 'C') ||
+      (m === 'D' && (pm === 'D1/D2')) ||
+      (m === 'E' && (pm === 'E/F')) ||
+      (m === 'G' && pm === 'G') ||
+      pm === 'All'
+    );
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let visible = 0;
+  let lastVisibleGroup = null;
+
+  // First pass: determine which items are visible
+  const groupVisibility = {};
+  document.querySelectorAll('#tbody tr[data-id]').forEach(tr => {
+    const method = tr.dataset.method;
+    const methodMatch = curMethod === 'all' ||
+      (curMethod === 'A' && method.startsWith('A')) ||
+      (curMethod === 'B' && method.startsWith('B')) ||
+      (curMethod === 'C' && method === 'C') ||
+      (curMethod === 'D' && method.startsWith('D')) ||
+      (curMethod === 'E' && method.includes('E')) ||
+      (curMethod === 'G' && method === 'G');
+
+    const textMatch = !q || tr.textContent.toLowerCase().includes(q);
+    const show = methodMatch && textMatch;
+    tr.classList.toggle('hidden', !show);
+    if (show) {
+      visible++;
+      groupVisibility[tr.dataset.group] = true;
+    }
+  });
+
+  // Second pass: hide/show group headers
+  document.querySelectorAll('#tbody tr.group-hdr').forEach(tr => {
+    tr.classList.toggle('hidden', !groupVisibility[tr.dataset.group]);
+  });
+
+  document.getElementById('item-count').textContent = `${visible} of ${ITEMS.length}`;
+}
+
+// ─── init ─────────────────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
